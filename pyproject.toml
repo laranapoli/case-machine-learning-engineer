@@ -11,8 +11,32 @@ notebook = "^7.2.2"
 ipykernel = "^6.29.5"
 pandas = "^2.2.3"
 scikit-learn = "^1.5.2"
+fastapi = "^0.115.6"
+uvicorn = "^0.32.1"
+python-multipart = "^0.0.19"
+mongomock = "^4.3.0"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+blue = "^0.9.1"
+isort = "^5.13.2"
+taskipy = "^1.14.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = "--doctest-modules"
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.taskipy.tasks]
+pre_test = "blue --check --diff . && isort --check --diff ."
+test = "pytest -s -x --cov=src -vv"
+post_test = "coverage html"
