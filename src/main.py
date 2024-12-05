@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from pydantic import BaseModel
 
-from database import InMemoryDatabase
+from src.database import InMemoryDatabase
 
 app = FastAPI()
 
@@ -98,7 +98,3 @@ async def get_history():
     all_predictions = list(history.find({}, {'_id': 0}))
 
     return {'history': all_predictions}
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8080, log_level='debug')
